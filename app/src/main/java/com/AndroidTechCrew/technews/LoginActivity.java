@@ -49,6 +49,9 @@ public class LoginActivity extends AppCompatActivity {
                 if(!email.isEmpty() && !password.isEmpty()){
                     loginUser(email,password);
                 }
+                else {
+                    Toast.makeText(LoginActivity.this, "Missing Fields!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -37,7 +37,12 @@ public class CreateAccountActvity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                createUser(email,password);
+                if(!email.isEmpty() && !password.isEmpty()){
+                    createUser(email,password);
+                }
+                else{
+                    Toast.makeText(CreateAccountActvity.this, "Missing fields!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
