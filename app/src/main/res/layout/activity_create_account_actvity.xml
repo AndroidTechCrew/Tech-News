@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context=".LoginActivity">
+    tools:context=".CreateAccountActvity">
+
 
     <EditText
-        android:id="@+id/etLoginPassword"
+        android:id="@+id/etSignUpPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etLoginEmail"
-        android:layout_marginTop="77dp"
+        android:layout_below="@+id/etSignUpEmail"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/etLoginEmail"
+        android:id="@+id/etSignUpEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="187dp"
+        android:layout_marginTop="210dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etLoginPassword"
-        android:layout_marginTop="64dp"
-        android:text="Login" />
-
-    <Button
-        android:id="@+id/buttonCreateAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonLogin"
-        android:layout_marginTop="59dp"
-        android:text="Create Account" />
+        android:layout_below="@+id/etSignUpPassword"
+        android:layout_marginTop="84dp"
+        android:text="Sign Up" />
 </RelativeLayout>
