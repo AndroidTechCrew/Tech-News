@@ -64,16 +64,20 @@
 
 * Home Tab
 * Profile Tab
+* Saved Tab
 
 
 **Flow Navigation** (Screen to Screen)
 
-* Login Screen (New User)
+* Login Screen/Create account screen (New User)
    * After Login: Home Page
    * More detailed news from home page
+   * Profile page
+   * Saved Page
 * Home Page (Returning User)
    * More detailed news from home page
    * Profile page
+   * Saved Page
  
 
 ## Wireframes
