@@ -16,7 +16,7 @@ import com.AndroidTechCrew.technews.R;
 public class HomeFeedFragment extends Fragment {
 
     public HomeFeedFragment() {
-        // Required empty public constructor
+        // Required empty public constructo
     }
 
 
