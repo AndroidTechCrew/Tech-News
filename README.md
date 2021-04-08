@@ -176,7 +176,8 @@ Saved Articles Page
                 }
             }
             });
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+
 | HTTP Verb | End Point | Description |
 | -------- | -------- | -------- |
 | ```GET```    | /everything    | Search through millions of articles from over 75,000 large and small news sources and blogs. This endpoint suits article discovery and analysis.|
