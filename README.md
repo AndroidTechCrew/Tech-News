@@ -120,6 +120,60 @@ Saved Articles Page
 
 
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
+- Home Screen
+    - (Create/POST) save a technews article. 
+        - ```java 
+                
+                Map<String, String> savedNews = new HashMap<>();
+                savedNews.put("title", "some title");
+                savedNews.put("author", "some author");
+                savedNews.put("Description", "some description");
+                savedNews.put("url", "some url");
+                savedNews.put("imageURL", "some image url");
+                savedNews.put("publishedAt", "string of date");
+                // maybe add this: savedNews.put("content", "the whole article");
+                
+                Map<String, Map> savedNewFolder = new HashMap<>();
+                
+                savedNewFolder.put("news Id given from API", savedNews);
+                
+                db.collection("users/" + currentUserUID + "/savedNews")
+                .add(savedNewsFolder)
+                
+                /*note that adding to a collection requires onSuccess and
+                onFailure listeners*/
+
+- Profile Screen
+    - (Read/GET) Get all the user information
+        - ```java
+            db.Collection("users/" + currentUserUID + "/profile").get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.getException());
+                }
+            }
+            });
+            
+- Saved News Screen
+    - (Read/GET) Get all the user saved tech news
+        - ```java
+            db.Collection("users/" + currentUserUID + "/savedNews").get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.getException());
+                }
+            }
+            });
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
