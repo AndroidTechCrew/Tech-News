@@ -90,7 +90,35 @@
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+
+Post: Under the assumption you will click on it for the full article.
+
+| Property |  Type | Description   |
+| :------: | :---: | :-----------: |
+| image    | File  | Image from API|
+| publishedDate | DateTime | Time article was published
+| author | String | Name of Author |
+| publisher | String | Name of publisher |
+| briefDescription | String | Brief description of article |
+
+Profile Page
+| Property |  Type | Description   |
+| :------: | :---: | :-----------: |
+| username | String | Username |
+| profileImage | Image | User's profile image |
+
+Saved Articles Page
+| Property |  Type | Description   |
+| :------: | :---: | :-----------: |
+| savedArticles | List[Post] | List of post objects that are saved |
+
+
+
+
+
+
+
+
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
