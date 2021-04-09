@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.AndroidTechCrew.technews.News;
 import com.AndroidTechCrew.technews.R;
 
 
@@ -30,6 +31,7 @@ public class HomeFeedFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //News.testapi();
 
     }
 }
