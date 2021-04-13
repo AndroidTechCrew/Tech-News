@@ -82,6 +82,10 @@
 
 ## Wireframes
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/MVIMG_20210401_180248.jpg" width=600 hieght=800>
+<<<<<<< HEAD
+=======
+<img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsWireframe.png" width=600 hieght=800>
+>>>>>>> 4cfa37f17109ff438bee180f24af654662788a21
 
 ### [BONUS] Digital Wireframes & Mockups
 
