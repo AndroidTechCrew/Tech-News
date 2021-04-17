@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +17,16 @@ import android.widget.TextView;
 
 import com.AndroidTechCrew.technews.LoginActivity;
 import com.AndroidTechCrew.technews.R;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
 public class ProfileFragment extends Fragment {
     private static final String TAG = "ProfileFragment";
@@ -33,6 +34,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     private TextView username;
     private ImageView profileImage;
+    private String basicPriofilePic = "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -54,6 +56,8 @@ public class ProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         username = view.findViewById(R.id.tvProfileUsername);
         profileImage = view.findViewById(R.id.ivProfileImage);
+        Glide.with(getContext()).load(basicPriofilePic).override(200,250).into(profileImage);
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         db.collection("users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -61,7 +65,7 @@ public class ProfileFragment extends Fragment {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-                    username.setText(document.getData().get("email").toString());
+                    username.setText(document.getData().get("email").toString().substring(0,document.getData().get("email").toString().indexOf("@")));
                 } else {
                     Log.d(TAG, "Cached get failed: ", task.getException());
                 }
