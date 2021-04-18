@@ -11,6 +11,7 @@ import android.widget.Switch;
 
 import com.AndroidTechCrew.technews.fragments.HomeFeedFragment;
 import com.AndroidTechCrew.technews.fragments.ProfileFragment;
+import com.AndroidTechCrew.technews.fragments.SavedNewsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -32,6 +33,9 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.profile_action:
                         fragment = new ProfileFragment();
+                        break;
+                    case R.id.savedNews_action:
+                        fragment = new SavedNewsFragment();
                         break;
                     default:
                         fragment = new HomeFeedFragment();

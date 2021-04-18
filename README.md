@@ -82,6 +82,10 @@
 
 ## Wireframes
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/MVIMG_20210401_180248.jpg" width=600 hieght=800>
+<<<<<<< HEAD
+=======
+<img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsWireframe.png" width=600 hieght=800>
+>>>>>>> 4cfa37f17109ff438bee180f24af654662788a21
 
 ### [BONUS] Digital Wireframes & Mockups
 
@@ -90,8 +94,96 @@
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+
+Post: Under the assumption you will click on it for the full article.
+
+| Property |  Type | Description   |
+| :------: | :---: | :-----------: |
+| image    | File  | Image from API|
+| publishedDate | DateTime | Time article was published
+| author | String | Name of Author |
+| publisher | String | Name of publisher |
+| briefDescription | String | Brief description of article |
+
+Profile Page
+| Property |  Type | Description   |
+| :------: | :---: | :-----------: |
+| username | String | Username |
+| profileImage | Image | User's profile image |
+
+Saved Articles Page
+| Property |  Type | Description   |
+| :------: | :---: | :-----------: |
+| savedArticles | List[Post] | List of post objects that are saved |
+
+
+
+
+
+
+
+
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+- Home Screen
+    - (Create/POST) save a technews article. 
+        - ```java 
+                
+                Map<String, String> savedNews = new HashMap<>();
+                savedNews.put("title", "some title");
+                savedNews.put("author", "some author");
+                savedNews.put("Description", "some description");
+                savedNews.put("url", "some url");
+                savedNews.put("imageURL", "some image url");
+                savedNews.put("publishedAt", "string of date");
+                // maybe add this: savedNews.put("content", "the whole article");
+                
+                Map<String, Map> savedNewFolder = new HashMap<>();
+                
+                savedNewFolder.put("news Id given from API", savedNews);
+                
+                db.collection("users/" + currentUserUID + "/savedNews")
+                .add(savedNewsFolder)
+                
+                /*note that adding to a collection requires onSuccess and
+                onFailure listeners*/
+
+- Profile Screen
+    - (Read/GET) Get all the user information
+        - ```java
+            db.Collection("users/" + currentUserUID + "/profile").get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.getException());
+                }
+            }
+            });
+            
+- Saved News Screen
+    - (Read/GET) Get all the user saved tech news
+        - ```java
+            db.Collection("users/" + currentUserUID + "/savedNews").get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.getException());
+                }
+            }
+            });
+
+
+| HTTP Verb | End Point | Description |
+| -------- | -------- | -------- |
+| ```GET```    | /everything    | Search through millions of articles from over 75,000 large and small news sources and blogs. This endpoint suits article discovery and analysis.|
+| ```GET``` | /top-headlines | This endpoint provides live top and breaking headlines for a country, specific category in a country, single source, or multiple sources. You can also search with keywords. Articles are sorted by the earliest date published first.|
+| ```GET``` | /sources | This endpoint returns the subset of news publishers that top headlines (/v2/top-headlines) are available from. It's mainly a convenience endpoint that you can use to keep track of the publishers available on the API, and you can pipe it straight through to your users.|
