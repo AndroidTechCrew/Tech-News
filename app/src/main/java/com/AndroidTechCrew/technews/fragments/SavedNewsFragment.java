@@ -50,6 +50,7 @@ public class SavedNewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rvSavedNews = view.findViewById(R.id.rvSavedNews);
+
         allSavedNews = new ArrayList<>();
         adapter = new SavedNewsAdapter(getContext(), allSavedNews);
         mAuth = FirebaseAuth.getInstance();
