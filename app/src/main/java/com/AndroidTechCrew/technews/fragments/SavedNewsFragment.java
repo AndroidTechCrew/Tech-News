@@ -28,10 +28,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
 
 public class SavedNewsFragment extends Fragment {
-
+    public static final String TAG = "SavedNewsFragment";
     private FirebaseAuth mAuth;
     private RecyclerView rvSavedNews;
     private SavedNewsAdapter adapter;
@@ -49,16 +48,16 @@ public class SavedNewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvSavedNews = view.findViewById(R.id.rvSavedNews);
+//        rvSavedNews = view.findViewById(R.id.rvSavedNews);
 
         allSavedNews = new ArrayList<>();
-        adapter = new SavedNewsAdapter(getContext(), allSavedNews);
+//        adapter = new SavedNewsAdapter(getContext(), allSavedNews);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        rvSavedNews.setAdapter(adapter);
-
-        rvSavedNews.setLayoutManager(new LinearLayoutManager(getContext()));
+//        rvSavedNews.setAdapter(adapter);
+//
+//        rvSavedNews.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FirebaseFirestore ff = FirebaseFirestore.getInstance();
         ff.collection("users/" + currentUser.getUid() + "/savedNews")
@@ -69,11 +68,26 @@ public class SavedNewsFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
+                                String title = document.getData().get("title").toString();
+                                String img = document.getData().get("imageUrl").toString();
+                                String des = document.getData().get("des").toString();
+                                String link = document.getData().get("newurl").toString();
+                                allSavedNews.add(new SavedNews(title,img,des,link));
+
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
+                        initializeRV(view);
                     }
                 });
+
+
+    }
+    private void initializeRV(View view){
+        RecyclerView recyclerView = view.findViewById(R.id.rvSavedNews);
+        SavedNewsAdapter adapter = new SavedNewsAdapter(getContext(),allSavedNews);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }
