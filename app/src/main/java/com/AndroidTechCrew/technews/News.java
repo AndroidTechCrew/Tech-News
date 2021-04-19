@@ -11,6 +11,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import okhttp3.Headers;
 
@@ -93,9 +94,19 @@ public class News {
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {
                     articles.addAll(News.jsonToArray(json.jsonObject));
-                    Log.i(TAG,articles.toString());
+                    Log.i(TAG, articles.toString());
                 } catch (JSONException e) {
-                    Log.i(TAG,"In catch");
+                    Log.i(TAG, "In catch");
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.i(TAG, "Failed");
+            }
+            //Log.i(TAG, articles.toString());
+        });
+        return articles;
+    }
 
     public static void testapi() {
         ArrayList<News> articles = new ArrayList<>();
@@ -110,19 +121,17 @@ public class News {
 
                     e.printStackTrace();
                 }
-                for(News n : articles){
-                    Log.d(TAG,String.format("\n\nNews article: \nSource: %s\nAuthor: %s\nTitle: %s\nDescription: %s\nURL: %s\nImage URL: %s\nPublish date: %s\ncontent: %s\n",
-                            n.getSource(),n.getAuthor(),n.getTitle(),n.getDescription(),n.getArticleLink(),n.getImageURL(),n.getPublishDate(),n.getContent()));
+                for (News n : articles) {
+                    Log.d(TAG, String.format("\n\nNews article: \nSource: %s\nAuthor: %s\nTitle: %s\nDescription: %s\nURL: %s\nImage URL: %s\nPublish date: %s\ncontent: %s\n",
+                            n.getSource(), n.getAuthor(), n.getTitle(), n.getDescription(), n.getArticleLink(), n.getImageURL(), n.getPublishDate(), n.getContent()));
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.i(TAG,"Failed");
+                Log.i(TAG, "Failed");
             }
         });
-        Log.i(TAG,articles.toString());
-        return articles;
 
     }
 }

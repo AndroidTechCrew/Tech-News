@@ -44,6 +44,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         News article = news.get(position);
         Log.i(TAG,news.get(position).toString());
+        holder.rlBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: GO to the article of the page
+            }
+        });
         holder.bind(article);
     }
 
