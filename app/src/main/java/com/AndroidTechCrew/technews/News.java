@@ -9,13 +9,15 @@ import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
-import java.util.ArrayList;
+
+import java.lang.reflect.Array;
 
 import okhttp3.Headers;
 
 public class News {
     private static final String TAG = "News" ;
     private static final String APIKEY = "";
+  
     String source;
     String author;
     String title;
@@ -79,6 +81,22 @@ public class News {
         return content;
     }
 
+
+    public static ArrayList<News> getArticles() {
+        ArrayList<News> articles = new ArrayList<>();
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get("https://newsapi.org/v2/everything?q=tech&sortBy=publishedAt&pageSize=5&apiKey=" + APIKEY, new JsonHttpResponseHandler() {
+            @Override
+            //TODO
+            //This link above is probably going to need a language filter, unless our user base is tri-lingual with Japanese, Hindi, and English.
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                try {
+                    articles.addAll(News.jsonToArray(json.jsonObject));
+                    Log.i(TAG,articles.toString());
+                } catch (JSONException e) {
+                    Log.i(TAG,"In catch");
+
     public static void testapi() {
         ArrayList<News> articles = new ArrayList<>();
         AsyncHttpClient client = new AsyncHttpClient();
@@ -89,6 +107,7 @@ public class News {
                 try {
                     articles.addAll(News.jsonToArray(json.jsonObject));
                 } catch (JSONException e) {
+
                     e.printStackTrace();
                 }
                 for(News n : articles){
@@ -99,9 +118,11 @@ public class News {
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-
+                Log.i(TAG,"Failed");
             }
         });
+        Log.i(TAG,articles.toString());
+        return articles;
 
     }
 }
