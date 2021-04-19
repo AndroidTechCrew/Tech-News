@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/savedNews_action"
+        android:icon="@drawable/ic_baseline_bookmarks_24"
+        android:title="Saved News"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/newsFeed_action"
         android:icon="@drawable/ic_baseline_article_24"
         android:title="News"
