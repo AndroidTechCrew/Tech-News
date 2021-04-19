@@ -9,14 +9,15 @@ import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
+
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 import okhttp3.Headers;
 
 public class News {
     private static final String TAG = "News" ;
-    private static final String APIKEY = "aa399d936ced443897beb61eed279f80";
+    private static final String APIKEY = "";
+  
     String source;
     String author;
     String title;
@@ -80,6 +81,7 @@ public class News {
         return content;
     }
 
+
     public static ArrayList<News> getArticles() {
         ArrayList<News> articles = new ArrayList<>();
         AsyncHttpClient client = new AsyncHttpClient();
@@ -94,6 +96,18 @@ public class News {
                     Log.i(TAG,articles.toString());
                 } catch (JSONException e) {
                     Log.i(TAG,"In catch");
+
+    public static void testapi() {
+        ArrayList<News> articles = new ArrayList<>();
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get("https://newsapi.org/v2/everything?q=tech&from=2021-03-09&sortBy=publishedAt&pageSize=5&apiKey=" + APIKEY, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                try {
+                    articles.addAll(News.jsonToArray(json.jsonObject));
+                } catch (JSONException e) {
+
                     e.printStackTrace();
                 }
                 for(News n : articles){
@@ -109,5 +123,6 @@ public class News {
         });
         Log.i(TAG,articles.toString());
         return articles;
+
     }
 }

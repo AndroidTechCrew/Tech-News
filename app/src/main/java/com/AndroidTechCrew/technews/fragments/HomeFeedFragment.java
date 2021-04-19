@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.AndroidTechCrew.technews.News;
+
 import com.AndroidTechCrew.technews.NewsAdapter;
+
 import com.AndroidTechCrew.technews.R;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -50,6 +52,7 @@ public class HomeFeedFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+      
         //Log.i(TAG,News.getArticles().toString());
         news = new ArrayList<>();
         Log.i(TAG,String.valueOf(news.size()));
