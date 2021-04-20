@@ -82,10 +82,8 @@
 
 ## Wireframes
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/MVIMG_20210401_180248.jpg" width=600 hieght=800>
-<<<<<<< HEAD
-=======
+
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsWireframe.png" width=600 hieght=800>
->>>>>>> 4cfa37f17109ff438bee180f24af654662788a21
 
 ### [BONUS] Digital Wireframes & Mockups
 
@@ -187,3 +185,7 @@ Saved Articles Page
 | ```GET```    | /everything    | Search through millions of articles from over 75,000 large and small news sources and blogs. This endpoint suits article discovery and analysis.|
 | ```GET``` | /top-headlines | This endpoint provides live top and breaking headlines for a country, specific category in a country, single source, or multiple sources. You can also search with keywords. Articles are sorted by the earliest date published first.|
 | ```GET``` | /sources | This endpoint returns the subset of news publishers that top headlines (/v2/top-headlines) are available from. It's mainly a convenience endpoint that you can use to keep track of the publishers available on the API, and you can pipe it straight through to your users.|
+
+
+## First Sprint
+<img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsFirstSprint.gif" width=400 hieght=600>
