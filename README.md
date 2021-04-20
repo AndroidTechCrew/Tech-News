@@ -187,5 +187,5 @@ Saved Articles Page
 | ```GET``` | /sources | This endpoint returns the subset of news publishers that top headlines (/v2/top-headlines) are available from. It's mainly a convenience endpoint that you can use to keep track of the publishers available on the API, and you can pipe it straight through to your users.|
 
 
-**First Sprint**
+##First Sprint
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsFirstSprint.gif" width=600 hieght=800>
