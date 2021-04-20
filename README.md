@@ -188,4 +188,4 @@ Saved Articles Page
 
 
 ## First Sprint
-<img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsFirstSprint.gif" width=600 hieght=800>
+<img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsFirstSprint.gif" width=400 hieght=600>
