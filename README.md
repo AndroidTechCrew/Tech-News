@@ -58,7 +58,9 @@
 - [X] get the user information on the profile screen
 - [X] Making web view intents
 - [X] Making intents for saved news screen
-- [X] Making intents for home feed screen### 2. Screen Archetypes
+- [X] Making intents for home feed screen
+
+### 2. Screen Archetypes
 
 * Login
 * Stream - Home page
