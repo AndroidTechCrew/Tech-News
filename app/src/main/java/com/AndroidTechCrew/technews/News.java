@@ -21,8 +21,8 @@ public class News {
   
     String source;
     String author;
-    String title;
-    String description;
+    static String title;
+    static String description;
     String articleLink;
     String imageURL;
     String publishDate;
@@ -58,11 +58,11 @@ public class News {
         return author;
     }
 
-    public String getTitle() {
+    public static String getTitle() {
         return title;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 
