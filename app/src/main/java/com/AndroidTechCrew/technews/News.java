@@ -87,7 +87,7 @@ public class News {
         ArrayList<News> articles = new ArrayList<>();
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("https://newsapi.org/v2/everything?q=tech&sortBy=publishedAt&pageSize=5&apiKey=" + APIKEY, new JsonHttpResponseHandler() {
+        client.get("https://newsapi.org/v2/sources?category=technologyapiKey=" + APIKEY, new JsonHttpResponseHandler() {
             @Override
             //TODO
             //This link above is probably going to need a language filter, unless our user base is tri-lingual with Japanese, Hindi, and English.

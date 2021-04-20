@@ -1,6 +1,7 @@
 package com.AndroidTechCrew.technews;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.AndroidTechCrew.technews.fragments.SavedNewsFragment;
 import com.bumptech.glide.Glide;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -43,6 +41,9 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "hiii", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(context, ArticlePageActivity.class);
+                i.putExtra("link", savedNews.get(position).getLink());
+                context.startActivity(i);
             }
         });
         holder.bind(savedNew);

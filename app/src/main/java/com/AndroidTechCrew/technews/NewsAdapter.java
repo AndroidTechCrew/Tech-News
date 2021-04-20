@@ -1,6 +1,7 @@
 package com.AndroidTechCrew.technews;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,6 +49,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 //TODO: GO to the article of the page
+                Intent i = new Intent(context, ArticlePageActivity.class);
+                i.putExtra("link", news.get(position).getArticleLink());
+                context.startActivity(i);
             }
         });
         holder.bind(article);
