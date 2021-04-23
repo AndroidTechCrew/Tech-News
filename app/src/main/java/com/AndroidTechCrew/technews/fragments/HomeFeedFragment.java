@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.AndroidTechCrew.technews.News;
 
@@ -55,8 +56,8 @@ public class HomeFeedFragment extends Fragment {
       
         //Log.i(TAG,News.getArticles().toString());
         news = new ArrayList<>();
-        Log.i(TAG,String.valueOf(news.size()));
-        getArticles(view);
+        //Log.i(TAG,String.valueOf(news.size()));
+        getArticles(view, news);
     }
     private void initializeRV(View view){
         RecyclerView recyclerView = view.findViewById(R.id.rvNews);
@@ -65,21 +66,26 @@ public class HomeFeedFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    private void getArticles(View view){
+    private void getArticles(View view, ArrayList<News> news){
         AsyncHttpClient client = new AsyncHttpClient();
-
         client.get("https://newsapi.org/v2/everything?q=tech&sortBy=publishedAt&pageSize=5&apiKey=" + APIKEY, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {
                     Log.i(TAG,json.toString());
-                    Log.i(TAG,News.jsonToArray(json.jsonObject).get(0).getTitle());
                     news.addAll(News.jsonToArray(json.jsonObject));
+                    initializeRV(view);
                 } catch (JSONException e) {
-                    Log.i(TAG,"In catch");
+                    //Log.i(TAG,"In catch");
                     e.printStackTrace();
+                    initializeRV(view);
                 }
-                initializeRV(view);
+                for(int i = 0; i < news.size(); i++){
+                    Log.i(TAG,Integer.toString(i));
+                    Log.i(TAG,news.get(i).getTitle());
+                    Log.i(TAG,news.get(i).getDescription());
+                    Log.i(TAG,news.get(i).getImageURL());
+                }
             }
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {

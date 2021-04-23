@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -69,17 +70,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public static Drawable getImageFromURL(String url){
-        try{
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable img = Drawable.createFromStream(is,"fill");
-            return img;
-        }
-        catch(Exception e){
-            return null;
-        }
+    public void saveArticle(View view){
+        Log.i(TAG,"Button pressed in adapter");
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView ivImage;
         TextView tvTitle;
