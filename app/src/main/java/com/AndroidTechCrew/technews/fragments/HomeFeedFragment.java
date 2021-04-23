@@ -58,6 +58,7 @@ public class HomeFeedFragment extends Fragment {
         news = new ArrayList<>();
         //Log.i(TAG,String.valueOf(news.size()));
         getArticles(view, news);
+
     }
     private void initializeRV(View view){
         RecyclerView recyclerView = view.findViewById(R.id.rvNews);

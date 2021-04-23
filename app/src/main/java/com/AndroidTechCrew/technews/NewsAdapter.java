@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.AndroidTechCrew.technews.fragments.HomeFeedFragment;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.InputStream;
 import java.lang.reflect.Array;
@@ -28,10 +31,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public static final String TAG = "test";
     Context context;
     List<News> news;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser user;
 
     public NewsAdapter(Context context, List<News> news){
         this.news = news;
         this.context = context;
+        this.mAuth = FirebaseAuth.getInstance();
+        this.user = mAuth.getCurrentUser();
     }
 
     @NonNull
@@ -78,6 +86,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         TextView tvTitle;
         TextView tvDesc;
         RelativeLayout rlBox;
+        Button btnSave;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,12 +94,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
             rlBox = itemView.findViewById(R.id.rlBox);
+            btnSave = itemView.findViewById(R.id.btnSave);
+
+
         }
 
         public void bind(News news){
             tvTitle.setText(news.getTitle());
             tvDesc.setText(news.getDescription());
             Glide.with(context).load(news.getImageURL()).into(ivImage);
+            btnSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(TAG,"Test button");
+                    db.collection("users/" + user.getUid() + "/savedNews");
+                }
+            });
         }
     }
 }
