@@ -31,7 +31,7 @@ import okhttp3.Headers;
 
 
 public class HomeFeedFragment extends Fragment {
-    private static final String APIKEY = "aa399d936ced443897beb61eed279f80";
+    private static final String APIKEY = "";
     public static final String TAG = "test";
     RecyclerView rvNews;
     ArrayList<News> news;
@@ -68,7 +68,7 @@ public class HomeFeedFragment extends Fragment {
     private void getArticles(View view){
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("https://newsapi.org/v2/everything?q=tech&sortBy=publishedAt&pageSize=5&apiKey=" + APIKEY, new JsonHttpResponseHandler() {
+        client.get("https://newsapi.org/v2/top-headlines?country=us&category=technology&sortBy=publishedAt&pageSize=5&apiKey=" + APIKEY, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {

@@ -21,8 +21,8 @@ public class News {
   
     String source;
     String author;
-    static String title;
-    static String description;
+    String title;
+    String description;
     String articleLink;
     String imageURL;
     String publishDate;
@@ -58,11 +58,11 @@ public class News {
         return author;
     }
 
-    public static String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public static String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -86,8 +86,9 @@ public class News {
     public static ArrayList<News> getArticles() {
         ArrayList<News> articles = new ArrayList<>();
         AsyncHttpClient client = new AsyncHttpClient();
-
-        client.get("https://newsapi.org/v2/sources?category=technologyapiKey=" + APIKEY, new JsonHttpResponseHandler() {
+//        "https://newsapi.org/v2/everything?q=tech&sortBy=publishedAt&pageSize=5&apiKey"
+//        https://newsapi.org/v2/top-headlines?category=technology&from=2021-03-09&sortBy=publishedAt&pageSize=5&apiKey=
+        client.get("https://newsapi.org/v2/top-headlines?country=us&category=technology&sortBy=publishedAt&pageSize=5&apiKey=" + APIKEY, new JsonHttpResponseHandler() {
             @Override
             //TODO
             //This link above is probably going to need a language filter, unless our user base is tri-lingual with Japanese, Hindi, and English.
@@ -112,7 +113,7 @@ public class News {
         ArrayList<News> articles = new ArrayList<>();
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("https://newsapi.org/v2/everything?q=tech&from=2021-03-09&sortBy=publishedAt&pageSize=5&apiKey=" + APIKEY, new JsonHttpResponseHandler() {
+        client.get("https://newsapi.org/v2/top-headlines?category=technology&from=2021-03-09&sortBy=publishedAt&pageSize=5&apiKey=" + APIKEY, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {
