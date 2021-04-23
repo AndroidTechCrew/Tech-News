@@ -72,19 +72,13 @@ public class HomeFeedFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {
-                    Log.i(TAG,json.toString());
+                    //Log.i(TAG,json.toString());
                     news.addAll(News.jsonToArray(json.jsonObject));
                     initializeRV(view);
                 } catch (JSONException e) {
                     //Log.i(TAG,"In catch");
                     e.printStackTrace();
                     initializeRV(view);
-                }
-                for(int i = 0; i < news.size(); i++){
-                    Log.i(TAG,Integer.toString(i));
-                    Log.i(TAG,news.get(i).getTitle());
-                    Log.i(TAG,news.get(i).getDescription());
-                    Log.i(TAG,news.get(i).getImageURL());
                 }
             }
             @Override

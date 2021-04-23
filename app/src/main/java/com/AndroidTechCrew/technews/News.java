@@ -108,9 +108,7 @@ public class News {
             //Log.i(TAG, articles.toString());
 
         });
-        for(News i: articles){
-            Log.i(TAG,i.getDescription());
-        }
+
         return articles;
     }
 
