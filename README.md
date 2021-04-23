@@ -49,6 +49,16 @@
 * Options to personalize the news that's displayed more
 * User can search for keywords to find articles
 
+**COMPLETED USER STORIES**
+- [X] add saved tab
+- [X] make a News Class
+- [X] implementation of recyclerview on home screen
+- [X] implementation of recyclerview on saved screen
+- [X] add user information to firestore
+- [X] get the user information on the profile screen
+- [X] Making web view intents
+- [X] Making intents for saved news screen
+- [X] Making intents for home feed screen
 
 ### 2. Screen Archetypes
 
@@ -189,3 +199,4 @@ Saved Articles Page
 
 ## First Sprint
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsFirstSprint.gif" width=400 hieght=600>
+<img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/firestoreAccountFull.gif">
