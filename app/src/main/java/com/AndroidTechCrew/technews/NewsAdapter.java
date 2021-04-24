@@ -110,17 +110,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Log.i(TAG,"Test button");
-                    db.collection("users/" + user.getUid() + "/savedNews").add(news).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.i(TAG,"News added to database successfully");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.i(TAG,"News was not added due to some issue.");
-                        }
-                    });
+                    //"users/" + user.getUid() + "/savedNews"
+                    db.collection("users/" + user.getUid() + "/savedNews").document(news.getTitle())
+                            .set(news)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error writing document", e);
+                                }
+                            });
                 }
             });
         }
