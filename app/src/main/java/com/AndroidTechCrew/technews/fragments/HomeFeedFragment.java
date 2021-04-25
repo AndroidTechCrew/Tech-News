@@ -31,6 +31,7 @@ import okhttp3.Headers;
 
 
 public class HomeFeedFragment extends Fragment {
+//    private static final String APIKEY = "4382c85598f146949406d316eaf5c7db";
     private static final String APIKEY = "";
     public static final String TAG = "test";
     RecyclerView rvNews;

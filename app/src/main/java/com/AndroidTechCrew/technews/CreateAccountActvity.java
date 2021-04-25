@@ -127,6 +127,7 @@ public class CreateAccountActvity extends AppCompatActivity  {
         userDoc.put("lastName",lastNameEditText.getText().toString());
         userDoc.put("Username",usernameEditText.getText().toString());
         userDoc.put("uid", user.getUid());
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(user.getUid())
                 .set(userDoc)
