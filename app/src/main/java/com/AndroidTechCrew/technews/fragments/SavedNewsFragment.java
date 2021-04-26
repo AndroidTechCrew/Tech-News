@@ -32,7 +32,7 @@ import java.util.List;
 public class SavedNewsFragment extends Fragment {
     public static final String TAG = "SavedNewsFragment";
     private FirebaseAuth mAuth;
-    private RecyclerView rvSavedNews;
+    public RecyclerView rvSavedNews;
     private SavedNewsAdapter adapter;
     private List<SavedNews> allSavedNews;
 
@@ -48,16 +48,13 @@ public class SavedNewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        rvSavedNews = view.findViewById(R.id.rvSavedNews);
+        //rvSavedNews = view.findViewById(R.id.rvSavedNews);
 
         allSavedNews = new ArrayList<>();
-//        adapter = new SavedNewsAdapter(getContext(), allSavedNews);
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-//        rvSavedNews.setAdapter(adapter);
-//
-//        rvSavedNews.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FirebaseFirestore ff = FirebaseFirestore.getInstance();
         ff.collection("users/" + currentUser.getUid() + "/savedNews")
@@ -69,9 +66,9 @@ public class SavedNewsFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 String title = document.getData().get("title").toString();
-                                String img = document.getData().get("imageUrl").toString();
-                                String des = document.getData().get("des").toString();
-                                String link = document.getData().get("newurl").toString();
+                                String img = document.getData().get("imageURL").toString();
+                                String des = document.getData().get("description").toString();
+                                String link = document.getData().get("articleLink").toString();
                                 allSavedNews.add(new SavedNews(title,img,des,link));
 
                             }
@@ -84,6 +81,7 @@ public class SavedNewsFragment extends Fragment {
 
 
     }
+
     private void initializeRV(View view){
         RecyclerView recyclerView = view.findViewById(R.id.rvSavedNews);
         SavedNewsAdapter adapter = new SavedNewsAdapter(getContext(),allSavedNews);

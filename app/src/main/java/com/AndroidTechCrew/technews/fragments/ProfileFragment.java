@@ -1,6 +1,7 @@
 package com.AndroidTechCrew.technews.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,18 +16,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.AndroidTechCrew.technews.EditProfileActivity;
 import com.AndroidTechCrew.technews.LoginActivity;
 import com.AndroidTechCrew.technews.R;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class ProfileFragment extends Fragment {
     private static final String TAG = "ProfileFragment";
@@ -35,6 +38,15 @@ public class ProfileFragment extends Fragment {
     private TextView username;
     private ImageView profileImage;
     private String basicPriofilePic = "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png";
+    private Uri profilePicUri;
+    private String profilePic;
+    private Button btnEditProfile;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+
+
+
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -55,9 +67,11 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         username = view.findViewById(R.id.tvProfileUsername);
-        profileImage = view.findViewById(R.id.ivProfileImage);
-        Glide.with(getContext()).load(basicPriofilePic).override(200,250).into(profileImage);
-
+        btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        profileImage = view.findViewById(R.id.ivProfilePic);
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+//        Glide.with(getContext()).load(basicPriofilePic).override(200, 250).into(profileImage);
         FirebaseUser currentUser = mAuth.getCurrentUser();
         db.collection("users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -65,12 +79,27 @@ public class ProfileFragment extends Fragment {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-                    username.setText(document.getData().get("email").toString().substring(0,document.getData().get("email").toString().indexOf("@")));
+                    username.setText(document.getData().get("email").toString().substring(0, document.getData().get("email").toString().indexOf("@")));
+//                    profilePic = document.getData().get("profileImage").toString();
+//                    Glide.with(ProfileFragment.this).load(profilePic).override(350,450).into(profileImage);
                 } else {
                     Log.d(TAG, "Cached get failed: ", task.getException());
                 }
             }
         });
+        StorageReference profileRef = storageReference.child("users/" + currentUser.getUid() + "/profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(getContext()).load(uri).into(profileImage);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Glide.with(getContext()).load(basicPriofilePic).into(profileImage);
+            }
+        });
+
         buttonLogout = view.findViewById(R.id.buttonLogout);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,13 +109,26 @@ public class ProfileFragment extends Fragment {
                 goToLoginActivity();
             }
         });
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
+                goToProfilePictureActivity();
 
+            }
+        });
+    }
+
+    private void goToProfilePictureActivity() {
+        Intent i = new Intent(getContext(), EditProfileActivity.class);
+        getContext().startActivity(i);
     }
 
     private void goToLoginActivity() {
         Intent i = new Intent(getContext(), LoginActivity.class);
         getContext().startActivity(i);
     }
+
 
 
 }

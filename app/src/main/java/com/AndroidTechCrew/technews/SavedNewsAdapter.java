@@ -2,29 +2,47 @@ package com.AndroidTechCrew.technews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.AndroidTechCrew.technews.fragments.SavedNewsFragment;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.ViewHolder> {
 
+    private static final String TAG = "SavedNewsAdapter";
     private Context context;
     private List<SavedNews> savedNews;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser currentUser;
 
     public SavedNewsAdapter(Context context, List<SavedNews> savedNews) {
         this.context = context;
         this.savedNews = savedNews;
+        this.mAuth = FirebaseAuth.getInstance();
+        this.currentUser = mAuth.getCurrentUser();
     }
 
     @NonNull
@@ -46,6 +64,29 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
                 context.startActivity(i);
             }
         });
+
+        holder.ibDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.collection("users/" + currentUser.getUid() + "/savedNews").document(savedNew.getTitle())
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                savedNews.remove(position);
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error deleting document", e);
+                            }
+                        });
+            }
+        });
+
         holder.bind(savedNew);
 
     }
@@ -60,7 +101,9 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
         private TextView tvTitle;
         private TextView tvDescription;
         private ImageView ivImage;
+        private ImageButton ibDelete;
         private RelativeLayout rvSavedNews;
+        private RecyclerView recyclerView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -70,6 +113,8 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivImage = itemView.findViewById(R.id.ivImage);
             rvSavedNews = itemView.findViewById(R.id.rlSavedNewsItem);
+            ibDelete = itemView.findViewById(R.id.ibDeleteSavedNews);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.rvSavedNews);
         }
 
         public void bind(SavedNews savedNew) {
@@ -80,6 +125,8 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
             Glide.with(context)
                     .load(savedNew.getImgURL())
                     .into(ivImage);
+
+
 
         }
     }

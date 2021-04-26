@@ -18,7 +18,9 @@ import okhttp3.Headers;
 public class News {
     private static final String TAG = "News" ;
     private static final String APIKEY = "";
-  
+//    private static final String APIKEY = "4382c85598f146949406d316eaf5c7db";
+
+
     String source;
     String author;
     String title;
@@ -46,6 +48,7 @@ public class News {
         JSONArray response = jsObject.getJSONArray("articles");
         for(int i = 0; i < response.length(); i++){
             techNewsArticles.add(new News(response.getJSONObject(i)));
+            Log.i(TAG,techNewsArticles.get(i).getDescription());
         }
         return techNewsArticles;
     }
@@ -96,6 +99,7 @@ public class News {
                 try {
                     articles.addAll(News.jsonToArray(json.jsonObject));
                     Log.i(TAG, articles.toString());
+
                 } catch (JSONException e) {
                     Log.i(TAG, "In catch");
                 }
@@ -105,7 +109,9 @@ public class News {
                 Log.i(TAG, "Failed");
             }
             //Log.i(TAG, articles.toString());
+
         });
+
         return articles;
     }
 
