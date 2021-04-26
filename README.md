@@ -50,15 +50,25 @@
 * User can search for keywords to find articles
 
 **COMPLETED USER STORIES**
-- [X] add saved tab
-- [X] make a News Class
-- [X] implementation of recyclerview on home screen
-- [X] implementation of recyclerview on saved screen
-- [X] add user information to firestore
-- [X] get the user information on the profile screen
-- [X] Making web view intents
-- [X] Making intents for saved news screen
-- [X] Making intents for home feed screen
+
+SPRINT 1
+- [X] Home Feed Fragment where users can view articles (currently can't save articles)
+- [X] Saved news Fragment where users can see saved articles (currently only manually added through firestore)
+- [X] Profile Fragement where users can log out and view current user logged on
+- [X] Login Page where users must enter an email and password (Access create account, if one isn't made)
+- [X] Create Account Page where users can enter an email and password to create a new account
+- [X] Implementation Web views to visit urls of articles
+- [X] Integration of Firebase Firestore to pull and save user information
+
+SPRINT 2
+- [X] Home Feed Fragment where users can view and save articles (Now can be saved by user)
+- [X] Saved news Fragment where users can see saved articles or remove them (Saved articles no longer need to be manually inserted)
+- [X] New updated UI to Login and Create Account Pages 
+- [X] Users must add first name, last name and username to create an account
+- [X] Profile Fragement now allows user access an edit account page and view uploaded profile picture (If one isn't uploaded, displays default image)
+- [X] Edit Profile Page where users can change first name, last name and username (Part1)
+- [X] Edit Profile Page where users can add profile picture either from their camera gallery or use their device's camera (PART2)
+- [X] Integration of Firebase Storage to save and pull user files (Profile picture)
 
 ### 2. Screen Archetypes
 
