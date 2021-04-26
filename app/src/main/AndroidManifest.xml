@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TechNews">
-        <activity android:name=".ProfilePictureActivity"></activity>
+        <activity android:name=".EditProfileActivity" />
         <activity android:name=".ArticlePageActivity" />
         <activity android:name=".CreateAccountActvity" />
         <activity android:name=".HomeActivity" />
@@ -32,7 +32,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

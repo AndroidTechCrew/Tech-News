@@ -1,18 +1,13 @@
 package com.AndroidTechCrew.technews.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +15,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.AndroidTechCrew.technews.EditProfileActivity;
 import com.AndroidTechCrew.technews.LoginActivity;
-import com.AndroidTechCrew.technews.ProfilePictureActivity;
 import com.AndroidTechCrew.technews.R;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,10 +30,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.io.File;
-
-import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
     private static final String TAG = "ProfileFragment";
@@ -102,6 +93,11 @@ public class ProfileFragment extends Fragment {
             public void onSuccess(Uri uri) {
                 Glide.with(getContext()).load(uri).into(profileImage);
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Glide.with(getContext()).load(basicPriofilePic).into(profileImage);
+            }
         });
 
         buttonLogout = view.findViewById(R.id.buttonLogout);
@@ -116,25 +112,15 @@ public class ProfileFragment extends Fragment {
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
                 goToProfilePictureActivity();
 
             }
         });
-
-//        profileImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
-//                goToProfilePictureActivity();
-//            }
-//        });
-//
-//    }
     }
 
     private void goToProfilePictureActivity() {
-        Intent i = new Intent(getContext(), ProfilePictureActivity.class);
+        Intent i = new Intent(getContext(), EditProfileActivity.class);
         getContext().startActivity(i);
     }
 

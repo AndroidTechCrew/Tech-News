@@ -13,8 +13,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -48,8 +46,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProfilePictureActivity extends AppCompatActivity {
-    private static final String TAG = "ProfilePictureActivity";
+public class EditProfileActivity extends AppCompatActivity {
+    private static final String TAG = "EditProfileActivity";
     private static final int CAMERA_PERM_CODE = 101;
 
     private Button buttonLogout;
@@ -72,13 +70,12 @@ public class ProfilePictureActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private FirebaseFirestore fstore;
-    private Intent intent;
-    private String profilePic;
     private Button btnCloseProfile;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     String currentPhotoPath;
-    private File photoFile;
-    public String photoFileName = "photo.jpg";
+    private String basicPriofilePic = "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png";
+    private Uri myUri;
+    private String submitCheck = null;
 
 
     @Override
@@ -105,7 +102,13 @@ public class ProfilePictureActivity extends AppCompatActivity {
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(ProfilePictureActivity.this).load(uri).into(profileImage);
+                Glide.with(EditProfileActivity.this).load(uri).override(150,150).into(profileImage);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+//                myUri = Uri.parse(basicPriofilePic);
+                Glide.with(EditProfileActivity.this).load(basicPriofilePic).override(150,150).into(profileImage);
             }
         });
 
@@ -170,11 +173,16 @@ public class ProfilePictureActivity extends AppCompatActivity {
                 askCameraPermissions();
             }
         });
-        dialogBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-//                profileImage.setImageURI(imageUri);
-                uploadPicture(imageUri);
+
+                if (submitCheck != null) {
+                    uploadPicture(imageUri);
+                }
+                else {
+                    Toast.makeText(EditProfileActivity.this, "No Image Added", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -182,12 +190,15 @@ public class ProfilePictureActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
-                Toast.makeText(ProfilePictureActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditProfileActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
             }
         });
 
         dialog = dialogBuilder.create();
         dialog.show();
+//        if (submitCheck != null) {
+//            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+//        }
 
     }
 
@@ -218,7 +229,13 @@ public class ProfilePictureActivity extends AppCompatActivity {
         userDoc.put("firstName",firstNameEdit.getText().toString());
         userDoc.put("lastName",lastNameEdit.getText().toString());
         userDoc.put("Username",usernameEdit.getText().toString());
-        userDoc.put("profileImage", imageUri.toString());
+//        if (!imageUri.toString().equals("users/" + Objects.requireNonNull(mAuth.getCurrentUser()).getUid() + "/profile.jpg")) {
+//            imageUri = myUri;
+//            userDoc.put("profileImage", imageUri.toString());
+//        }
+//        else {
+//        userDoc.put("profileImage", imageUri.toString());
+
         userDoc.put("uid", currentUser.getUid());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(currentUser.getUid())
@@ -227,6 +244,8 @@ public class ProfilePictureActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
+                        Snackbar.make(findViewById(android.R.id.content), "User Updated", Snackbar.LENGTH_LONG).show();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -257,7 +276,9 @@ public class ProfilePictureActivity extends AppCompatActivity {
 //                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 //                String imageFileName = "JPEG_" + timeStamp +"."+ getFileExt(contentUri);
 //                Log.d("tag", "onActivityResult: Gallery Image Uri:  " +  imageFileName);
+                submitCheck = "Yes";
                 Toast.makeText(this, "Picture Choosen", Toast.LENGTH_SHORT).show();
+
 
             }
         }
@@ -265,9 +286,10 @@ public class ProfilePictureActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK) {
 //            Bitmap photo = (Bitmap)data.getExtras().get("data");
 //            profileImage.setImageBitmap(photo);
+                submitCheck = "Yes";
                 File file = new File(currentPhotoPath);
                 imageUri = Uri.fromFile(file);
-
+                Toast.makeText(this, "Picture Taken", Toast.LENGTH_SHORT).show();
 //                Log.d(TAG, "ABsolute Url of Image is " + Uri.fromFile(file));
 //                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
 //                profileImage.setImageBitmap(takenImage);
@@ -324,7 +346,8 @@ public class ProfilePictureActivity extends AppCompatActivity {
                 photoStorage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Glide.with(ProfilePictureActivity.this).load(uri).into(profileImage);
+                        Glide.with(EditProfileActivity.this).load(uri).override(150,150).into(profileImage);
+//                        Glide.with(getContext()).load(uri)..into(profileImage);
                     }
                 });
             }
@@ -332,7 +355,8 @@ public class ProfilePictureActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
-                Toast.makeText(ProfilePictureActivity.this, "Failed to Upload", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditProfileActivity.this, "Failed to Upload", Toast.LENGTH_SHORT).show();
+
             }
         });
 
