@@ -90,6 +90,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         TextView tvDesc;
         RelativeLayout rlBox;
         Button btnSave;
+        Button btnComment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,6 +99,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             tvDesc = itemView.findViewById(R.id.tvDesc);
             rlBox = itemView.findViewById(R.id.rlBox);
             btnSave = itemView.findViewById(R.id.btnSave);
+            btnComment = itemView.findViewById(R.id.btnComment);
 
 
         }
@@ -105,7 +107,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         public void bind(News news){
             tvTitle.setText(news.getTitle());
             tvDesc.setText(news.getDescription());
-            Glide.with(context).load(news.getImageURL()).into(ivImage);
+            Glide.with(context).load(news.getImageURL()).error(R.drawable.dummyimage).into(ivImage);
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -127,6 +129,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                             });
                 }
             });
+
+            btnComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, CommentActivity.class);
+                    i.putExtra("image", news.imageURL);
+                    i.putExtra("title", news.getTitle());
+                    context.startActivity(i);
+                }
+            });
+
         }
     }
 }
