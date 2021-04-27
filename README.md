@@ -210,3 +210,6 @@ Saved Articles Page
 ## First Sprint
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsFirstSprint.gif" width=400 hieght=600>
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/firestoreAccountFull.gif">
+
+## Second Sprint
+<img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/sprint2Part1.gif">
