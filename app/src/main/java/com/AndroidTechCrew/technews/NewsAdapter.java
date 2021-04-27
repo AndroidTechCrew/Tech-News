@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.AndroidTechCrew.technews.fragments.HomeFeedFragment;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.InputStream;
 import java.lang.reflect.Array;
@@ -27,10 +34,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public static final String TAG = "test";
     Context context;
     List<News> news;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser user;
 
     public NewsAdapter(Context context, List<News> news){
         this.news = news;
         this.context = context;
+        this.mAuth = FirebaseAuth.getInstance();
+        this.user = mAuth.getCurrentUser();
     }
 
     @NonNull
@@ -69,22 +81,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public static Drawable getImageFromURL(String url){
-        try{
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable img = Drawable.createFromStream(is,"fill");
-            return img;
-        }
-        catch(Exception e){
-            return null;
-        }
+    public void saveArticle(View view){
+        Log.i(TAG,"Button pressed in adapter");
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView ivImage;
         TextView tvTitle;
         TextView tvDesc;
         RelativeLayout rlBox;
+        Button btnSave;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,12 +97,36 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
             rlBox = itemView.findViewById(R.id.rlBox);
+            btnSave = itemView.findViewById(R.id.btnSave);
+
+
         }
 
         public void bind(News news){
             tvTitle.setText(news.getTitle());
             tvDesc.setText(news.getDescription());
             Glide.with(context).load(news.getImageURL()).into(ivImage);
+            btnSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(TAG,"Test button");
+                    //"users/" + user.getUid() + "/savedNews"
+                    db.collection("users/" + user.getUid() + "/savedNews").document(news.getTitle())
+                            .set(news)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error writing document", e);
+                                }
+                            });
+                }
+            });
         }
     }
 }
