@@ -213,3 +213,6 @@ Saved Articles Page
 
 ## Second Sprint
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/sprint2Part1.gif">
+<img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/sprint2part2.gif">
+<img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/sprint2part3.gif">
+
