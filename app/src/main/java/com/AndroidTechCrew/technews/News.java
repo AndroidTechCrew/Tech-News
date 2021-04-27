@@ -39,6 +39,9 @@ public class News {
         description = jsonObject.getString("description");
         articleLink = jsonObject.getString("url");
         imageURL = jsonObject.getString("urlToImage");
+        if(imageURL == null || imageURL == "" || imageURL == "null"){
+            imageURL = "https://dummyimage.com/hd1080";
+        }
         publishDate = jsonObject.getString("publishedAt").substring(0,10);
         content = jsonObject.getString("content");
     }

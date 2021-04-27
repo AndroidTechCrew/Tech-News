@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -103,6 +104,7 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
         private ImageView ivImage;
         private ImageButton ibDelete;
         private RelativeLayout rvSavedNews;
+        private Button commentButton;
         private RecyclerView recyclerView;
 
 
@@ -114,6 +116,7 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
             ivImage = itemView.findViewById(R.id.ivImage);
             rvSavedNews = itemView.findViewById(R.id.rlSavedNewsItem);
             ibDelete = itemView.findViewById(R.id.ibDeleteSavedNews);
+            commentButton = itemView.findViewById(R.id.btnSavedNewsComment);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.rvSavedNews);
         }
 
@@ -125,6 +128,15 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
             Glide.with(context)
                     .load(savedNew.getImgURL())
                     .into(ivImage);
+            commentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, CommentActivity.class);
+                    i.putExtra("image", savedNew.getImgURL());
+                    i.putExtra("title", savedNew.getTitle());
+                    context.startActivity(i);
+                }
+            });
 
 
 
