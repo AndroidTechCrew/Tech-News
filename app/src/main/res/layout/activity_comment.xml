@@ -34,7 +34,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentsRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="363dp"
         android:layout_below="@+id/tvArethereComments"
         android:layout_marginTop="0dp" />
 
@@ -47,8 +47,8 @@
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@+id/btnActionMakeComment"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="make a comment!"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnActionMakeComment"

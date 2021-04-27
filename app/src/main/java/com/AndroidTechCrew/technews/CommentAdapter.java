@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,6 +60,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             profilePic = itemView.findViewById(R.id.ivCommentItemProfileImage);
             username = itemView.findViewById(R.id.tvCommentItemUsername);
             comment= itemView.findViewById(R.id.tvCommentItemComment);
+
         }
 
         void bind(Comment c){
