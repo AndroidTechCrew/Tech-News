@@ -1,6 +1,7 @@
 package com.AndroidTechCrew.technews;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         }
 
         void bind(Comment c){
+            //Uri myUri = Uri.parse("http://stackoverflow.com")
+            //Uri uri = Uri.parse(c.getProfilePic());
             Glide.with(context).load(c.getProfilePic()).into(profilePic);
             username.setText(c.getUsername());
             comment.setText(c.getComment());

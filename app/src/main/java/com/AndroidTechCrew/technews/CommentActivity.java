@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +49,7 @@ public class CommentActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,17 +85,16 @@ public class CommentActivity extends AppCompatActivity {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 String username = document.getData().get("username").toString();
                                 String comment = document.getData().get("comment").toString();
-                                comments.add(new Comment("https://dummyimage.com/300.png/09f/fff",username,comment));
+                                String uid = document.getData().get("uid").toString();
+                                makeComment(username,comment,uid);
+                                if(!document.exists()){
+                                    areThereComments.setText("Seems like no one said anything. Be the first to share your insight!");
+                                }
                             }
+
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                             areThereComments.setText("Seems like no one said anything. Be the first to share your insight!");
-                        }
-                        if(comments.size() == 0){
-                            areThereComments.setText("Seems like no one said anything. Be the first to share your insight!");
-                        }
-                        else{
-                            initializeRV();
                         }
                     }
                 });
@@ -109,7 +112,9 @@ public class CommentActivity extends AppCompatActivity {
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                 String username = document.getData().get("Username").toString();
+                                String uid = document.getData().get("uid").toString();
                                 commentData.put("username",username);
+                                commentData.put("uid",uid);
                                 addData(commentData);
                             } else {
                                 Log.d(TAG, "No such document");
@@ -148,5 +153,28 @@ public class CommentActivity extends AppCompatActivity {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
+    }
+
+    private void makeComment(String username, String comment, String uid){
+        StorageReference pathReference = storage.getReference().child("users/" + uid + "/profile.jpg");
+        Comment c = new Comment("https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png",username,comment);
+        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                c.setProfilePic(uri.toString());
+                comments.add(c);
+                initializeRV();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "running fail ");
+                comments.add(c);
+                initializeRV();
+                Log.d(TAG, "get failed with " + comments.size());
+
+            }
+        });
+
     }
 }

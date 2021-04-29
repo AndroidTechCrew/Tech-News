@@ -1,5 +1,7 @@
 package com.AndroidTechCrew.technews.fragments;
 
+import android.net.Uri;
+
 public class Comment {
     private String profilePic;
     private String username;
@@ -9,6 +11,7 @@ public class Comment {
         this.username = username;
         this.comment = comment;
     }
+
 
     public String getProfilePic() {
         return profilePic;
@@ -20,5 +23,9 @@ public class Comment {
 
     public String getComment() {
         return comment;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 }
