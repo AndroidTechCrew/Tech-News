@@ -134,6 +134,7 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
                     Intent i = new Intent(context, CommentActivity.class);
                     i.putExtra("image", savedNew.getImgURL());
                     i.putExtra("title", savedNew.getTitle());
+                    i.putExtra("articleLink", savedNew.getLink());
                     context.startActivity(i);
                 }
             });

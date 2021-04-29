@@ -75,19 +75,25 @@ public class CommentActivity extends AppCompatActivity {
         String imageURL = getIntent().getStringExtra("image");
         Glide.with(this).load(imageURL).into(articleImage);
 
+        String articleLink = getIntent().getStringExtra("articleLink");
+
         db.collection("articles/" + title + "/comments")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            if(task.getResult().isEmpty()){
+                                Log.d(TAG, "ITS EMPTY ");
+                                areThereComments.setText("Seems like no one said anything. Be the first to share your insight!");
+                            }
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 String username = document.getData().get("username").toString();
                                 String comment = document.getData().get("comment").toString();
                                 String uid = document.getData().get("uid").toString();
                                 makeComment(username,comment,uid);
-                                if(!document.exists()){
+                                if(document.getData().isEmpty()){
                                     areThereComments.setText("Seems like no one said anything. Be the first to share your insight!");
                                 }
                             }
@@ -115,7 +121,9 @@ public class CommentActivity extends AppCompatActivity {
                                 String uid = document.getData().get("uid").toString();
                                 commentData.put("username",username);
                                 commentData.put("uid",uid);
+                                commentData.put("articleLink",articleLink);
                                 addData(commentData);
+                                saveDataToUser(commentData);
                             } else {
                                 Log.d(TAG, "No such document");
                             }
@@ -143,6 +151,26 @@ public class CommentActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
                         Toast.makeText(getApplicationContext(), "Comment added!", Toast.LENGTH_SHORT).show();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
+
+    private void saveDataToUser(HashMap<String,String> data){
+        db.collection("users/" + currentUser.getUid() + "/comments")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                        Toast.makeText(getApplicationContext(), "Comment saved to user", Toast.LENGTH_SHORT).show();
                         finish();
                         startActivity(getIntent());
                     }
