@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbackground"
+    android:background="@drawable/whitebackground"
     android:padding="10dp"
     tools:context=".CreateAccountActvity">
 
@@ -16,7 +16,7 @@
         android:layout_below="@+id/etSignUpEmail"
         android:layout_marginTop="5dp"
         android:background='@drawable/custom_input'
-        android:backgroundTint="#474747"
+        android:backgroundTint="#1F46B5"
         android:drawableLeft="@drawable/ic_action_password"
         android:ems="10"
         android:hint="Password"
@@ -33,7 +33,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="210dp"
         android:background='@drawable/custom_input'
-        android:backgroundTint="#474747"
+        android:backgroundTint="#1F46B5"
         android:drawableLeft="@drawable/ic_action_email"
         android:ems="10"
         android:hint="Email"
@@ -62,7 +62,7 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/bubblegum_sans"
         android:text="Register"
-        android:textColor="#B2F8F0"
+        android:textColor="#1934BD"
         android:textSize="70dp" />
 
 </RelativeLayout>

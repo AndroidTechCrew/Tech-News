@@ -5,6 +5,7 @@
     android:id="@+id/rlSavedNewsItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivImage"
         android:layout_marginTop="10dp"
+        android:textStyle="bold"
         tools:text="Title" />
 
     <TextView
@@ -32,11 +34,12 @@
 
     <ImageButton
         android:id="@+id/ibDeleteSavedNews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
         android:layout_below="@+id/tvDescription"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
+        android:background="@drawable/custom_deleted_button"
         app:srcCompat="@drawable/ic_baseline_delete_24" />
 
     <Button
@@ -45,6 +48,7 @@
         android:layout_height="40dp"
         android:layout_below="@+id/tvDescription"
         android:layout_marginTop="10dp"
+        android:background="@drawable/custom_saved_button"
         app:icon="@drawable/ic_baseline_add_comment_24" />
 
 </RelativeLayout>
