@@ -23,7 +23,11 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:fontFamily="sans-serif-medium"
+        android:text="TextView"
+        android:textColor="#03100f"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvDesc"
@@ -33,26 +37,33 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:fontFamily="sans-serif-medium"
+        android:text="TextView"
+        android:textColor="#03100f"
+        android:textStyle="italic" />
 
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@+id/tvDesc"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
-        app:icon="@android:drawable/ic_menu_save" />
+        android:background="@drawable/custom_button"
+        android:text="Save News"
+        android:textColor="#03100f" />
 
     <Button
         android:id="@+id/btnComment"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@+id/tvDesc"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        app:icon="@drawable/ic_baseline_add_comment_24" />
+        android:background="@drawable/custom_button"
+        android:text="Add a Comment!"
+        android:textColor="#03100f" />
 
 </RelativeLayout>
