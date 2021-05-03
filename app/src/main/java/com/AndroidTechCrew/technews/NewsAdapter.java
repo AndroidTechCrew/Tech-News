@@ -137,6 +137,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                     i.putExtra("image", news.imageURL);
                     i.putExtra("title", news.getTitle());
                     i.putExtra("articleLink", news.getArticleLink());
+                    i.putExtra("description",news.getDescription());
                     context.startActivity(i);
                 }
             });
