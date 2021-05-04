@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="@drawable/loginbackground"
+    android:background="@drawable/whitebackground"
     tools:context=".LoginActivity">
 
     <EditText
@@ -15,7 +15,7 @@
         android:layout_below="@+id/etLoginEmail"
         android:layout_marginTop="5dp"
         android:background='@drawable/custom_input'
-        android:backgroundTint="#474747"
+        android:backgroundTint="#1F46B5"
         android:drawableLeft="@drawable/ic_action_password"
         android:ems="10"
         android:hint="Password"
@@ -31,9 +31,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="187dp"
+        android:layout_marginTop="210dp"
         android:background='@drawable/custom_input'
-        android:backgroundTint="#474747"
+        android:backgroundTint="#1F46B5"
         android:drawableLeft="@drawable/ic_action_email"
         android:ems="10"
         android:hint="Email"
@@ -48,10 +48,11 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/etLoginPassword"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="#18C3E1"
         android:fontFamily="sans-serif"
         android:text="Login"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
     <Button
@@ -70,10 +71,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="120dp"
         android:fontFamily="@font/bubblegum_sans"
         android:text="Login"
-        android:textColor="#B2F8F0"
+        android:textColor="#1934BD"
         android:textSize="70dp" />
 
     <TextView
@@ -81,9 +82,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="430dp"
         android:text="Don't have an account?"
-        android:textColor="#FFFFFF"
+        android:textColor="#122D78"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="123dp"
+        android:layout_height="118dp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/icon" />
 </RelativeLayout>

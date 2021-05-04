@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CommentActivity extends AppCompatActivity {
+public class userCommentsActivity extends AppCompatActivity {
 
     private static final String TAG = "CommentActivity";
     private ImageView articleImage;
@@ -61,9 +61,6 @@ public class CommentActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
         comments = new ArrayList<>();
-//        String imageUrl = getIntent().getStringExtra("image");
-        String description = getIntent().getStringExtra("description");
-
 
         btnComment = findViewById(R.id.btnActionMakeComment);
         etComment = findViewById(R.id.etMakeAComment);
@@ -125,10 +122,6 @@ public class CommentActivity extends AppCompatActivity {
                                 commentData.put("username",username);
                                 commentData.put("uid",uid);
                                 commentData.put("articleLink",articleLink);
-                                //TODO
-                                commentData.put("imageUrl",imageURL);
-                                commentData.put("articleDescription",description);
-                                commentData.put("articleTitle",title);
                                 addData(commentData);
                                 saveDataToUser(commentData);
                             } else {
@@ -159,7 +152,7 @@ public class CommentActivity extends AppCompatActivity {
                         Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
                         Toast.makeText(getApplicationContext(), "Comment added!", Toast.LENGTH_SHORT).show();
                         finish();
-//                        startActivity(getIntent());
+                        startActivity(getIntent());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

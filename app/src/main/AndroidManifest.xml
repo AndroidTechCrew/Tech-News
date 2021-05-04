@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TechNews">
-        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".userCommentsActivity"></activity>
+        <activity android:name=".CommentActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".ArticlePageActivity" />
         <activity android:name=".CreateAccountActvity" />
