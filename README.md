@@ -70,6 +70,13 @@ SPRINT 2
 - [X] Edit Profile Page where users can add profile picture either from their camera gallery or use their device's camera (PART2)
 - [X] Integration of Firebase Storage to save and pull user files (Profile picture)
 
+SPRINT 3
+- [X] Home Feed Fragment UI updated
+- [X] Saved news Fragment UI updated
+- [X] Profile Page Fragments UI updated
+- [X] User can comment on articles and see their comments and other people's comments
+- [X] User can see what they comment and click on comment view article comments on profile
+
 ### 2. Screen Archetypes
 
 * Login
