@@ -37,6 +37,9 @@ public class News {
         author = jsonObject.getString("author");
         title = jsonObject.getString("title");
         description = jsonObject.getString("description");
+        if(description == null || description == "" || description == "null"){
+            description = "No description was given";
+        }
         articleLink = jsonObject.getString("url");
         imageURL = jsonObject.getString("urlToImage");
         if(imageURL == null || imageURL == "" || imageURL == "null"){
