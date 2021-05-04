@@ -225,5 +225,5 @@ Saved Articles Page
 
 ## Third Sprint
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsThirdSprint.gif">
-### This is to show that every article that has been commented on holds values
+This is to show that every article that has been commented on holds values
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsThirdSprintPart2.gif">
