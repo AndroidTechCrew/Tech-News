@@ -2,6 +2,7 @@ package com.AndroidTechCrew.technews;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,6 +16,9 @@ public class ArticlePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_page);
         String link = getIntent().getStringExtra("link");
+        if(link.substring(0,21).equals("https://m.youtube.com")){
+            //link = Uri.parse()
+        }
         webView = (WebView) findViewById(R.id.wvArticlePage);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(link);

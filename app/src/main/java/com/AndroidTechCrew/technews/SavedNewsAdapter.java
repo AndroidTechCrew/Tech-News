@@ -135,6 +135,7 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
                     i.putExtra("image", savedNew.getImgURL());
                     i.putExtra("title", savedNew.getTitle());
                     i.putExtra("articleLink", savedNew.getLink());
+                    i.putExtra("description", savedNew.getDescription());
                     context.startActivity(i);
                 }
             });
