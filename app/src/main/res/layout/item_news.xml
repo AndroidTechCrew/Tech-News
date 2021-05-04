@@ -11,6 +11,10 @@
         android:id="@+id/CardView"
         android:layout_width="match_parent"
         android:layout_height="160dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:cardCornerRadius="6dp"
         app:cardElevation="4dp">
 
@@ -43,6 +47,8 @@
         android:id="@+id/tvDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="165dp"
         android:textColor="#000000"
         android:textSize="15dp"
@@ -50,14 +56,13 @@
 
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_below="@+id/tvDesc"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/custom_button"
-        android:text="Save "
         android:textColor="#03100f"
         app:icon="@android:drawable/ic_menu_save" />
 
@@ -66,6 +71,8 @@
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_below="@+id/tvDesc"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/custom_saved_button"
         app:icon="@drawable/ic_baseline_add_comment_24" />

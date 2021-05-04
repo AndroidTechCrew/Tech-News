@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,6 +62,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 //TODO: GO to the article of the page
+                Toast.makeText(context, article.getTitle(), Toast.LENGTH_LONG).show();
                 Intent i = new Intent(context, ArticlePageActivity.class);
                 i.putExtra("link", news.get(position).getArticleLink());
                 context.startActivity(i);
@@ -100,8 +102,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             rlBox = itemView.findViewById(R.id.rlBox);
             btnSave = itemView.findViewById(R.id.btnSave);
             btnComment = itemView.findViewById(R.id.btnComment);
-
-
         }
 
         public void bind(News news){

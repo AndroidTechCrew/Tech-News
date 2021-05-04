@@ -59,7 +59,7 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
         holder.rvSavedNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "hiii", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, savedNew.getTitle(), Toast.LENGTH_LONG).show();
                 Intent i = new Intent(context, ArticlePageActivity.class);
                 i.putExtra("link", savedNews.get(position).getLink());
                 context.startActivity(i);
