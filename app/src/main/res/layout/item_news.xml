@@ -30,6 +30,23 @@
             android:layout_height="160dp"
             android:background="@drawable/gradient" />
 
+        <ImageView
+            android:id="@+id/ivNewsHeartOff"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="290dp"
+            android:layout_marginTop="100dp"
+            app:srcCompat="@drawable/like" />
+
+        <ImageView
+            android:id="@+id/ivNewsHeartOn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="290dp"
+            android:layout_marginTop="100dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/hearton" />
+
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -41,6 +58,16 @@
             android:textSize="20dp"
             android:textStyle="bold"
             tools:text="Title Box" />
+
+        <TextView
+            android:id="@+id/tvNewsNumberOfLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="270dp"
+            android:layout_marginTop="120dp"
+            android:text="0"
+            android:textColor="#F8F6F6"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
     <TextView

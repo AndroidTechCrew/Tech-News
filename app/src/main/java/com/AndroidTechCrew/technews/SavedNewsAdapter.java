@@ -21,13 +21,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.AndroidTechCrew.technews.fragments.SavedNewsFragment;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.ViewHolder> {
@@ -105,6 +114,9 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
         private ImageButton ibDelete;
         private RelativeLayout rvSavedNews;
         private Button commentButton;
+        private ImageView heartOn;
+        private ImageView heartOff;
+        private TextView numOfLikes;
         private RecyclerView recyclerView;
 
 
@@ -117,6 +129,9 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
             rvSavedNews = itemView.findViewById(R.id.rlSavedNewsItem);
             ibDelete = itemView.findViewById(R.id.ibDeleteSavedNews);
             commentButton = itemView.findViewById(R.id.btnSavedNewsComment);
+            heartOff = itemView.findViewById(R.id.heartOff);
+            heartOn = itemView.findViewById(R.id.heartOn);
+            numOfLikes = itemView.findViewById(R.id.tvNumberOfLikes);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.rvSavedNews);
         }
 
@@ -139,7 +154,110 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
                     context.startActivity(i);
                 }
             });
+            heartOff.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //changing the number of likes TextView
+                    String currentNumOflikes = numOfLikes.getText().toString();
+                    String ans = String.valueOf(Integer.parseInt(currentNumOflikes) + 1);
+                    numOfLikes.setText(ans);
+                    //switching out hearts
+                    heartOff.setVisibility(View.INVISIBLE);
+                    heartOn.setVisibility(View.VISIBLE);
+                    //saving the likes to a user
+                    DocumentReference likeRef = db.collection("users/" + currentUser.getUid() + "/likes").document(savedNew.getTitle());
+                    HashMap<String, String> likeData = new HashMap<>();
+                    likeData.put(savedNew.getTitle(), "true");
+                    likeRef.set(likeData);
+                    //saving the number of likes per article
+                    DocumentReference articleLikesRef = db.collection("articles").document(savedNew.getTitle()).collection("likes").document("numOfLikes");
+                    articleLikesRef.update("likes", FieldValue.increment(1)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "Likes for articles updated!");
+                        }
+                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error updating document", e);
+                                    HashMap<String,Integer> d = new HashMap<>();
+                                    d.put("likes",1);
+                                    articleLikesRef.set(d);
+                                }
+                            });
 
+
+                }
+            });
+            heartOn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String currentNumOflikes = numOfLikes.getText().toString();
+                    String ans = String.valueOf(Integer.parseInt(currentNumOflikes) - 1);
+                    numOfLikes.setText(ans);
+
+                    heartOff.setVisibility(View.VISIBLE);
+                    heartOn.setVisibility(View.INVISIBLE);
+                    db.collection("users/" + currentUser.getUid() + "/likes").document(savedNew.getTitle()).delete();
+
+                    //deleting likes from articles
+                    DocumentReference articleLikesRef = db.collection("articles").document(savedNew.getTitle()).collection("likes").document("numOfLikes");
+                    articleLikesRef.update("likes", FieldValue.increment(-1)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "Likes for articles updated!");
+                        }
+                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error updating document", e);
+                                }
+                            });
+
+                }
+            });
+
+            //this checks if the users has already liked it
+            db.collection("users/" + currentUser.getUid() + "/likes").document(savedNew.getTitle()).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            heartOff.setVisibility(View.INVISIBLE);
+                            heartOn.setVisibility(View.VISIBLE);
+                        } else {
+                            Log.d(TAG, "Like doesn't exist");
+                        }
+                    } else {
+                        Log.d(TAG, "failed to get Like ", task.getException());
+                    }
+                }
+            });
+
+            //Checks to see how many likes there are
+            db.document("articles/" + savedNew.getTitle() + "/likes/numOfLikes").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            Log.d(TAG, "WHAT IS THE DATA GIVEN?: " + document.getData().get("likes").toString());
+                            String textOfLikes = document.getData().get("likes").toString();
+                            numOfLikes.setText(textOfLikes);
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                }
+            });
 
 
         }
