@@ -102,13 +102,13 @@ public class EditProfileActivity extends AppCompatActivity {
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(EditProfileActivity.this).load(uri).override(150,150).into(profileImage);
+                Glide.with(EditProfileActivity.this).load(uri).override(500, 500).circleCrop().into(profileImage);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
 //                myUri = Uri.parse(basicPriofilePic);
-                Glide.with(EditProfileActivity.this).load(basicPriofilePic).override(150,150).into(profileImage);
+                Glide.with(EditProfileActivity.this).load(basicPriofilePic).override(500, 500).circleCrop().into(profileImage);
             }
         });
 
@@ -121,7 +121,27 @@ public class EditProfileActivity extends AppCompatActivity {
         updateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveUser(currentUser);
+                String firstname = firstNameEdit.getText().toString();
+                String lastname = lastNameEdit.getText().toString();
+                String username = usernameEdit.getText().toString();
+                if (firstname.isEmpty()) {
+                    firstNameEdit.setError("First Name is required");
+                    firstNameEdit.requestFocus();
+                    return;
+                }
+                if (lastname.isEmpty()) {
+                    lastNameEdit.setError("Password is required");
+                    lastNameEdit.requestFocus();
+                    return;
+                }
+                if (username.isEmpty()) {
+                    usernameEdit.setError("Password is required");
+                    usernameEdit.requestFocus();
+                    return;
+                }
+                if (!firstname.isEmpty() && !username.isEmpty() && !username.isEmpty()) {
+                    saveUser(currentUser);
+                }
             }
         });
         btnCloseProfile.setOnClickListener(new View.OnClickListener() {
@@ -131,8 +151,6 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-
     private void loaduserinfo(FirebaseUser user) {
         db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -346,7 +364,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 photoStorage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Glide.with(EditProfileActivity.this).load(uri).override(150,150).into(profileImage);
+                        Glide.with(EditProfileActivity.this).load(uri).circleCrop().into(profileImage);
 //                        Glide.with(getContext()).load(uri)..into(profileImage);
                     }
                 });

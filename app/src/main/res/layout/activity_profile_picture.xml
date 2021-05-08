@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
     tools:context=".EditProfileActivity">
 
 
-    <ImageView
-        android:id="@+id/ivProfilePic"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="106dp"
-        android:layout_marginBottom="470dp"
-        tools:src="@tools:sample/avatars" />
+    <view
+        android:id="@+id/view"
+        class="androidx.constraintlayout.widget.ConstraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="235dp"
+        android:background="@drawable/whitebackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></view>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="127dp"
+        android:layout_height="122dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_border_style"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnEditProfile"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59000003">
+
+        <ImageView
+            android:id="@+id/ivProfilePic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@tools:sample/avatars[9]" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/changeProfilePic"
@@ -29,10 +44,12 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="194dp"
+        android:layout_marginBottom="24dp"
         android:text="Change Profile Pic"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/firstNameTag"
@@ -41,24 +58,26 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="247dp"
+        android:layout_marginTop="72dp"
         android:text="First Name"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/fNameEdit"
+        app:layout_constraintTop_toBottomOf="@+id/changeProfilePic" />
 
     <EditText
         android:id="@+id/fNameEdit"
-        android:layout_width="333dp"
+        android:layout_width="310dp"
         android:layout_height="40dp"
         android:layout_below="@+id/firstNameTag"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="4dp" />
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edit_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameTag" />
 
     <TextView
         android:id="@+id/lastNameTag"
@@ -67,24 +86,26 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="345dp"
+        android:layout_marginTop="20dp"
         android:text="Last Name"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/lNameEdit"
+        app:layout_constraintTop_toBottomOf="@+id/fNameEdit" />
 
     <EditText
         android:id="@+id/lNameEdit"
-        android:layout_width="333dp"
+        android:layout_width="310dp"
         android:layout_height="40dp"
         android:layout_below="@+id/lastNameTag"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="4dp" />
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edit_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastNameTag" />
 
     <TextView
         android:id="@+id/usernameTag"
@@ -93,41 +114,102 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="443dp"
+        android:layout_marginTop="20dp"
         android:text="Username"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/usernameEdit"
+        app:layout_constraintTop_toBottomOf="@+id/lNameEdit" />
 
     <EditText
         android:id="@+id/usernameEdit"
-        android:layout_width="333dp"
+        android:layout_width="310dp"
         android:layout_height="40dp"
         android:layout_below="@+id/usernameTag"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="4dp" />
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edit_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameTag" />
 
     <Button
         android:id="@+id/updateUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="201dp"
+        android:layout_height="41dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="554dp"
-        android:text="Update User" />
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_saved_button"
+        android:backgroundTint="#FFFFFF"
+        android:hapticFeedbackEnabled="true"
+        android:text="Update"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameEdit" />
 
     <Button
         android:id="@+id/btnCloseProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="78dp"
+        android:layout_height="36dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="12dp"
-        android:text="Exit" />
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_button"
+        android:backgroundTint="@color/white"
+        android:text="Done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="-64dp" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="lNameEdit"
+        tools:layout_editor_absoluteX="30dp" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+

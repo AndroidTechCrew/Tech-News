@@ -81,7 +81,7 @@ public class userCommentAdapter extends RecyclerView.Adapter<userCommentAdapter.
         void bind(UserComments c){
             //Uri myUri = Uri.parse("http://stackoverflow.com")
             //Uri uri = Uri.parse(c.getProfilePic());
-            Glide.with(context).load(c.getProfilePic()).into(profilePic);
+            Glide.with(context).load(c.getProfilePic()).centerCrop().into(profilePic);
             UserCommentArticle.setText(c.getArticleTitle());
             Usercomment.setText(c.getComment());
             UsercommentItemRL.setOnClickListener(new View.OnClickListener() {

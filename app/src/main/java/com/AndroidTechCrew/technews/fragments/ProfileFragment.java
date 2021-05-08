@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ public class ProfileFragment extends Fragment {
     private Button buttonLogout;
     private FirebaseAuth mAuth;
     private TextView username;
+    private TextView email;
     private ImageView profileImage;
     private String basicPriofilePic = "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png";
     private Uri profilePicUri;
@@ -80,6 +82,7 @@ public class ProfileFragment extends Fragment {
         username = view.findViewById(R.id.tvProfileUsername);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         profileImage = view.findViewById(R.id.ivProfilePic);
+        email = view.findViewById(R.id.ivEmail);
         storage = FirebaseStorage.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         storageReference = storage.getReference();
@@ -95,8 +98,9 @@ public class ProfileFragment extends Fragment {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-//                    username.setText(document.getData().get("email").toString().substring(0, document.getData().get("email").toString().indexOf("@")));
+                    email.setText(document.getData().get("email").toString());
                     username.setText(document.getData().get("Username").toString());
+
 //                    profilePic = document.getData().get("profileImage").toString();
 //                    makeComment(username, comment, currentUser.getUid(), view, comments);
 //                    Glide.with(ProfileFragment.this).load(profilePic).override(350,450).into(profileImage);
@@ -143,12 +147,12 @@ public class ProfileFragment extends Fragment {
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(getContext()).load(uri).into(profileImage);
+                Glide.with(getContext()).load(uri).override(250,250).circleCrop().into(profileImage);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Glide.with(getContext()).load(basicPriofilePic).into(profileImage);
+                Glide.with(getContext()).load(basicPriofilePic).override(250,250).circleCrop().into(profileImage);
             }
         });
 

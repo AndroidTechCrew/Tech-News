@@ -37,12 +37,12 @@ public class News {
         author = jsonObject.getString("author");
         title = jsonObject.getString("title");
         description = jsonObject.getString("description");
-        if(description == null || description == "" || description == "null"){
+        if(description == null || description.equals("") || description.equals("null")){
             description = "No description was given";
         }
         articleLink = jsonObject.getString("url");
         imageURL = jsonObject.getString("urlToImage");
-        if(imageURL == null || imageURL == "" || imageURL == "null"){
+        if(imageURL == null || imageURL.equals("") || imageURL.equals("null")){
             imageURL = "https://dummyimage.com/hd1080";
         }
         publishDate = jsonObject.getString("publishedAt").substring(0,10);

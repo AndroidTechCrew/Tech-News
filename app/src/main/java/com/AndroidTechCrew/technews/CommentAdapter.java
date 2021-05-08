@@ -67,7 +67,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         void bind(Comment c){
             //Uri myUri = Uri.parse("http://stackoverflow.com")
             //Uri uri = Uri.parse(c.getProfilePic());
-            Glide.with(context).load(c.getProfilePic()).into(profilePic);
+            Glide.with(context).load(c.getProfilePic()).centerCrop().into(profilePic);
             username.setText(c.getUsername());
             comment.setText(c.getComment());
         }
