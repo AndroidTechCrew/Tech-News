@@ -130,12 +130,12 @@ public class EditProfileActivity extends AppCompatActivity {
                     return;
                 }
                 if (lastname.isEmpty()) {
-                    lastNameEdit.setError("Password is required");
+                    lastNameEdit.setError("Last Name is required");
                     lastNameEdit.requestFocus();
                     return;
                 }
                 if (username.isEmpty()) {
-                    usernameEdit.setError("Password is required");
+                    usernameEdit.setError("Username is required");
                     usernameEdit.requestFocus();
                     return;
                 }

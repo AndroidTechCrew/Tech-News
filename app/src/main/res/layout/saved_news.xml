@@ -88,7 +88,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginRight="0dp"
-        android:background="@drawable/custom_saved_button"
+        android:background="@drawable/custom_deleted_button"
         app:srcCompat="@drawable/ic_baseline_delete_24" />
 
     <Button

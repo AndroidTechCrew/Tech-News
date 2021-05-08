@@ -84,10 +84,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/userCommentsRV"
             android:layout_width="0dp"
-            android:layout_height="441dp"
-            android:layout_marginTop="52dp"
+            android:layout_height="501dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
 

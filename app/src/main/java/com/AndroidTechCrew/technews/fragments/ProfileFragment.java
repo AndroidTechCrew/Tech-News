@@ -55,10 +55,6 @@ public class ProfileFragment extends Fragment {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private List<UserComments> comments;
-
-
-
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseFirestore db2 = FirebaseFirestore.getInstance();
 
