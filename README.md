@@ -236,3 +236,4 @@ This is to show that every article that has been commented on holds values
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsThirdSprintPart2.gif">
 
 ## Fouth Sprint
+<img src="https://i.imgur.com/EMb5oJ9.mp4">
