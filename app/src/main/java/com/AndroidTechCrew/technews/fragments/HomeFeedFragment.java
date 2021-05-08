@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ public class HomeFeedFragment extends Fragment {
     RecyclerView rvNews;
     ArrayList<News> news;
     NewsAdapter adapter;
+    SwipeRefreshLayout swipeContainer;
 
 
     public HomeFeedFragment() {
@@ -57,7 +59,16 @@ public class HomeFeedFragment extends Fragment {
       
         //Log.i(TAG,News.getArticles().toString());
         news = new ArrayList<>();
-        //Log.i(TAG,String.valueOf(news.size()));
+        swipeContainer = view.findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i(TAG,"refreshing the news");
+                news.clear();
+                getArticles(view,news);
+                swipeContainer.setRefreshing(false);
+            }
+        });
         getArticles(view, news);
 
     }
@@ -77,6 +88,7 @@ public class HomeFeedFragment extends Fragment {
                     //Log.i(TAG,json.toString());
                     news.addAll(News.jsonToArray(json.jsonObject));
                     initializeRV(view);
+                    Log.i(TAG,"done initializing");
                 } catch (JSONException e) {
                     //Log.i(TAG,"In catch");
                     e.printStackTrace();
