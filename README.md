@@ -77,6 +77,13 @@ SPRINT 3
 - [X] User can comment on articles and see their comments and other people's comments
 - [X] User can see what they comment and click on comment view article comments on profile
 
+SPRINT 4
+- [X] Home Feed Fragment UI updated
+- [X] Saved news Fragment UI updated
+- [X] Profile Page Fragments UI updated
+- [X] User can like articles which are saved to the user and to the article in Firestore (Can see like number increment)
+- [X] User can unlike articles and can see like number decrement 
+
 ### 2. Screen Archetypes
 
 * Login
@@ -227,3 +234,5 @@ Saved Articles Page
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsThirdSprint.gif">
 This is to show that every article that has been commented on holds values
 <img src="https://github.com/AndroidTechCrew/Tech-News/blob/master/TechNewsThirdSprintPart2.gif">
+
+## Fouth Sprint
