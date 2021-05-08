@@ -158,7 +158,7 @@ public class CommentActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
                         Toast.makeText(getApplicationContext(), "Comment added!", Toast.LENGTH_SHORT).show();
-                        finish();
+                        //finish();
 //                        startActivity(getIntent());
                     }
                 })
