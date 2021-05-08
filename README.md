@@ -37,7 +37,7 @@
 
 * Home page that has tech news
 * Like, comment and share functionality 
-* Profile page that shows accounts likes and comments on certain news articles
+* Profile page that shows accounts comments on certain news articles
 * Saved news page - shows all saved articles
 * Login page
 * Tech news content
