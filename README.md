@@ -36,7 +36,7 @@
 **Required Must-have Stories**
 
 * Home page that has tech news
-* Like, comment and share functionality 
+* Like, and comment functionality 
 * Profile page that shows accounts comments on certain news articles
 * Saved news page - shows all saved articles
 * Login page
